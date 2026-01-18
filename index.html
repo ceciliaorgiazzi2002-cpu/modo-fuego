@@ -1,0 +1,52 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MODO FUEGO</title>
+<style>
+body { font-family: system-ui, Arial; background:#0f0f14; color:#fff; margin:0; }
+header { padding:20px; text-align:center; }
+button { padding:14px 18px; margin:8px; border-radius:10px; border:none; font-size:16px; }
+.primary { background:#ff5a5f; color:#fff; }
+.secondary { background:#222; color:#fff; }
+.card { margin:20px; padding:24px; border-radius:16px; background:#1b1b22; min-height:160px; display:flex; align-items:center; justify-content:center; text-align:center; }
+small { opacity:.7; }
+</style>
+</head>
+<body>
+<header>
+<h1>🔥 MODO FUEGO</h1>
+<small>Juego para adultos. Consentimiento y respeto.</small>
+</header>
+
+<div style="text-align:center">
+<button class="secondary" onclick="setDeck('previa')">MAZO PREVIA</button>
+<button class="secondary" onclick="setDeck('accion')">MAZO ACCIÓN</button>
+<button class="secondary" onclick="setDeck('posiciones')">MAZO POSICIONES</button>
+</div>
+
+<div class="card" id="card">Elegí un mazo y tocá “Sacar carta”.</div>
+
+<div style="text-align:center">
+<button class="primary" onclick="draw()">Sacar carta</button>
+<button class="secondary" onclick="draw()">Saltar</button>
+</div>
+
+<script>
+const decks = {
+previa: ["SUSURRALE ALGO QUE HAR\u00cdAS SI NO HUBIERAN REGLAS.", "DECIME ALGO QUE QUER\u00c9S HACER\u2026 PERO TODAV\u00cdA NO TE ANIM\u00c1S.", "TE DOY 10 SEGUNDOS PARA TENTARME SIN HABLAR.", "GIR\u00c1 UNA MONEDA: CARA, ELEG\u00cdS VOS; CRUZ, ELIJO YO QU\u00c9 HAC\u00c9S.", "ELEG\u00cd UNA PARTE DE TU CUERPO Y DECIME C\u00d3MO QUER\u00c9S QUE LA TOQUE POR 5 SEGUNDOS.", "DECIME UNA FANTAS\u00cdA QUE NO TENGA LUGAR NI HORA.", "DECIME QU\u00c9 HAR\u00cdAS SI TE DIJERA \u201cS\u00cd\u201d A TODO.", "\u00bfCU\u00c1L ES TU FORMA FAVORITA DE QUE TE TOQUEN?", "\u00bfQU\u00c9 ACCI\u00d3N SIMPLE TE RESULTA IRRESISTIBLE?", "\u00bfQU\u00c9 TE GUSTAR\u00cdA PROBAR CONMIGO SI NADIE LO SUPIERA?", "\u00bfCU\u00c1L FUE EL MOMENTO EN QUE M\u00c1S ME DESEASTE?", "\u00bfQU\u00c9 TE CALIENTA M\u00c1S: LO QUE VES O LO QUE IMAGIN\u00c1S?", "\u00bfQU\u00c9 PARTE TUYA QUER\u00c9S QUE TOQUE SIN AVISO?", "\u00bfQU\u00c9 TE GUSTA M\u00c1S: QUE TE DIGAN O QUE TE HAGAN?", "DECIME QU\u00c9 ES LO QUE M\u00c1S TE EXCITA SIN TOCARTE.", "JUG\u00c1 A \u201cS\u00cd O NO\u201d: PREGUNTAME ALGO QUE TE D\u00c9 CURIOSIDAD.", "ACERCATE A MI CUELLO Y DECIME QU\u00c9 TE GUSTAR\u00cdA HACER AH\u00cd.", "TOC\u00c1 ALGO M\u00cdO DURANTE 3 SEGUNDOS Y ALEJATE.", "TOC\u00c1 TU PROPIO CUERPO COMO SI FUERA EL M\u00cdO.", "\u00bfTEN\u00c9S ALG\u00daN FETICHE SEXUAL? \u00bfCU\u00c1L?", "SI PUDI\u00c9RAMOS ESTAR EN CUALQUIER LUGAR AHORA, \u00bfD\u00d3NDE SER\u00cdA Y QU\u00c9 HAR\u00cdAMOS?", "EN TRES PALABRAS, \u00bfC\u00d3MO DESCRIBIR\u00cdAS MI PERSONALIDAD EN LA CAMA?", "\u00bfSO\u00d1ASTE ALGUNA VEZ CON HACER UN TR\u00cdO?", "\u00bfQU\u00c9 POSICIONES SEXUALES TE GUSTAR\u00cdA PROBAR?", "\u00bfTE GUSTA M\u00c1S DAR O RECIBIR SEXO ORAL?", "SI TE DIJERA QUE QUIERO TENER SEXO EN UN LUGAR P\u00daBLICO, \u00bfQU\u00c9 ME DIR\u00cdAS?", "SI TUVIERAS QUE SEDUCIRME EN 5 MINUTOS, \u00bfQU\u00c9 HAR\u00cdAS?", "\u00bfQU\u00c9 TE GUSTAR\u00cdA QUE TE HICIERA HOY?", "\u00bfEN QU\u00c9 LUGAR DE LA CASA TE GUSTAR\u00cdA HACERLO?", "\u00bfHAY ALGO QUE NUNCA HAR\u00cdAS EN LA CAMA?"],
+accion: ["BESAME EN LA PARTE DE MI CUERPO QUE M\u00c1S TE GUSTA.", "DESCRIBIME C\u00d3MO ME COGER\u00cdAS.", "CALENTAME USANDO \u00daNICAMENTE TU LENGUA.", "LLEVAME A UN LUGAR DONDE NUNCA LO HAYAMOS HECHO.", "GRABA UN VIDEO CALIENTE CONMIGO.", "TAPATE LOS OJOS Y ADIVIN\u00c1 CON QU\u00c9 PARTE DEL CUERPO TE ESTOY TOCANDO.", "SACAME LA ROPA INTERIOR SIN USAR LAS MANOS.", "ATAME Y HAC\u00c9 ALGO QUE SIEMPRE HAYAS QUERIDO HACER.", "DAME UN MASAJE SENSUAL DE CUERPO COMPLETO POR 5 MINUTOS.", "DESVESTITE COMPLETAMENTE Y JUG\u00c1 EL RESTO DEL JUEGO AS\u00cd.", "PONETE UNA VENDA Y BES\u00c1 LA PARTE DEL CUERPO QUE PONGA FRENTE A TU BOCA.", "ACTU\u00c1 COMO SI ME ESTUVIERAS CONOCIENDO POR PRIMERA VEZ.", "JUG\u00c1 A QUE SOS MI PROHIBIDO POR UNA NOCHE.", "SUSURRAME UNA ORDEN Y ESPER\u00c1 A QUE LA CUMPLA.", "PROV\u00d3CAME SOLO MEDIANTE EL TACTO.", "PON\u00c9 UNA ALARMA DE 10 MINUTOS: TODO PERMITIDO MENOS PENETRACI\u00d3N.", "PONE DULCE DE LECHE EN MI CUERPO Y L\u00c1MELO.", "INTENT\u00c1 QUE TU PAREJA LLEGUE AL ORGASMO EN 5 MINUTOS.", "DALE A TU PAREJA UN BAILE ER\u00d3TICO.", "RECORREME CON BESOS DESDE LA CABEZA HASTA EL ABDOMEN."],
+posiciones: ["EL \u00c1NGEL DE NIEVE", "MARIPOSA RECLINADA", "EL TRONO DEL REY", "EL FACTOR X", "LA COBRA", "EL ACR\u00d3BATA", "EL PORT\u00c1TIL", "EL PRETZEL", "LA BICICLETA", "LA ARA\u00d1A", "LA ISLA", "LA CARRETILLA", "LA VAQUERA / AMAZONA INVERTIDA", "EL DELF\u00cdN", "EL 69", "LA FLOR DE LOTO", "LA BAILARINA", "EL CANDADO", "EL CARACOL", "LA ESTANTER\u00cdA", "LA CUCHARITA", "LA CASCADA", "EL SURFERO", "EL SACACORCHOS"]
+};
+let current = 'previa';
+function setDeck(d) { current=d; document.getElementById('card').innerText='Mazo '+d.toUpperCase(); }
+function draw() {
+const arr = decks[current];
+const c = arr[Math.floor(Math.random()*arr.length)];
+document.getElementById('card').innerText = c;
+}
+</script>
+</body>
+</html>
